@@ -3,9 +3,10 @@ require 'faraday'
 
 module ChatbotApi
   class Client
+    BASE_URL = "http://localhost:3000/api/v1"
 
     def initialize
-      @connection = Faraday.new(url: "http://localhost:3000/api/v1")
+      @connection = Faraday.new(url: BASE_URL)
     end
 
     def get_all_chat_rooms
