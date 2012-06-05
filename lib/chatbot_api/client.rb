@@ -20,7 +20,7 @@ module ChatbotApi
       @connection.post do |req|
         req.url '/chat_rooms'
         req.headers['Content-Type'] = 'application/json'
-        req.body = '{ "title": "hasdfasdf" }'
+        req.body = attributes
       end
     end
   end
