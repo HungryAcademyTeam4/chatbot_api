@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.description = %q{easily create new messages and chatrooms}
 
   s.add_development_dependency "rspec"
-  s.add_development_dependency "faraday"
+  s.add_dependency "faraday"
 
   s.rubyforge_project = "chatbot_api"
 

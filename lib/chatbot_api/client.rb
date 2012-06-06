@@ -30,5 +30,13 @@ module ChatbotApi
         req.body = attributes
       end
     end
+
+    def create_message(attributes)
+      @connection.post do |req|
+        req.url "/api/v1/messages"
+        req.headers['Content-Type'] = 'application/json'
+        req.body = attributes
+      end
+    end
   end
 end
