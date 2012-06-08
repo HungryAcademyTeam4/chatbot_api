@@ -1,7 +1,7 @@
 require 'json'
 
 class ChatRoom
-  attr_accessor :title, :user_id, :id
+  attr_accessor :title, :user_id, :id, :created_at
 
   def self.client
     ChatbotApi::Client.new
