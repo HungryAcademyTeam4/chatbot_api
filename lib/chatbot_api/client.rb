@@ -22,7 +22,9 @@ module ChatbotApi
         req.url "/api/v1/chat_rooms/#{id}"
         req.headers['Content-Type'] = 'application/json'
       end
-      response.body
+      #need to return as an array
+      parsed = JSON.parse(response.body)
+      [parsed].to_json
     end
 
     def create_chat_room(attributes)
@@ -54,7 +56,9 @@ module ChatbotApi
         req.url "/api/v1/messages/#{id}"
         req.headers['Content-Type'] = 'application/json'
       end
-      response.body
+      #need to return as an array
+      parsed = JSON.parse(response.body)
+      [parsed].to_json
     end
 
   end

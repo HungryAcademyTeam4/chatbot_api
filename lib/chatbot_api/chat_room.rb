@@ -8,9 +8,10 @@ class ChatRoom
   end
 
   def initialize(attributes)
-    self.id      = attributes["id"]
-    self.title   = attributes["title"]
-    self.user_id = attributes["user_id"]
+    self.id         = attributes["id"]
+    self.title      = attributes["title"]
+    self.user_id    = attributes["user_id"]
+    self.created_at = attributes["created_at"]
   end
 
   def self.all

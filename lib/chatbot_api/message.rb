@@ -12,6 +12,7 @@ class Message
     self.content      = attributes["content"]
     self.user_id      = attributes["user_id"]
     self.chat_room_id = attributes["chat_room_id"]
+    self.created_at   = attributes["created_at"]
   end
 
   def self.all
