@@ -21,7 +21,18 @@ class MockClient
       { "chat_room" =>
         { "id" => 1,
           "title" => "Room 1",
-          "user_id" => 1 }
+          "user_id" => 1
+          # "messages" =>
+          #   [
+          #     { "message" =>
+          #       { "id" => 1,
+          #         "content" => 'hello world',
+          #         "user_id" => 1,
+          #         "chat_room_id" => 1,
+          #         "created_at" => Time.now }
+          #     }
+          #   ]
+        }
       }
     ].to_json
   end
@@ -70,7 +81,7 @@ describe ChatRoom do
   describe ".find_by_id" do
     it "returns a chat room" do
       id = ChatRoom.parse_all(MockClient.new.get_chat_room_by_id(1)).first.id
-      ChatRoom.find_by_id(id).first.should be_kind_of(ChatRoom)
+      ChatRoom.find_by_id(id).should be_kind_of(ChatRoom)
     end
   end
 
@@ -78,6 +89,19 @@ describe ChatRoom do
     it "creates a new chat room" do
       attributes = {"id" => 1, "title" => "Room 1", "user_id" => 1}
       ChatRoom.create(attributes).should be_kind_of(ChatRoom)
+    end
+  end
+
+  describe '#messages' do
+    it 'returns all associated messages' do
+      pending "JSON formatting is kicking my butt"
+      id = JSON.parse(MockClient.new.get_chat_room_by_id(1)).first["chat_room"]
+      ChatRoom.find_by_id(id).messages.first.should be_kind_of(Message)
+    end
+
+    it 'returns nil when no messages' do
+      id = JSON.parse(MockClient.new.get_chat_room_by_id(1)).first["chat_room"]
+      ChatRoom.find_by_id(id).messages.should be_nil
     end
   end
 end

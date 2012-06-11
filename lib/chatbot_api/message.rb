@@ -24,7 +24,7 @@ class Message
   end
 
   def self.find_by_id(id)
-    parse_all(client.get_message_by_id(id))
+    parse_all(client.get_message_by_id(id)).first
   end
 
   def self.parse_all(json_package)

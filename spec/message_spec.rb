@@ -73,7 +73,7 @@ describe Message do
   describe ".find_by_id" do
     it "returns a message" do
       id = Message.parse_all(MockClient.new.get_message_by_id(1)).first.id
-      Message.find_by_id(id).first.should be_kind_of(Message)
+      Message.find_by_id(id).should be_kind_of(Message)
     end
   end
 

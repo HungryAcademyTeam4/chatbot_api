@@ -19,7 +19,7 @@ class ChatRoom
   end
 
   def self.find_by_id(id)
-    parse_all(client.get_chat_room_by_id(id))
+    parse_all(client.get_chat_room_by_id(id)).first
   end
 
   def self.create(attributes)
@@ -30,5 +30,18 @@ class ChatRoom
     JSON.parse(json_package).collect do |room_attributes|
       ChatRoom.new(room_attributes["chat_room"])
     end
+  end
+
+  def messages
+    response = ChatRoom.client.get_chat_room_by_id(self.id)
+    parsed = JSON.parse(response)
+    raw_messages = parsed.first["chat_room"]["messages"]
+    if raw_messages.nil?
+      return nil
+    else
+      messages = raw_messages.collect do |msg_attributes|
+      Message.new(msg_attributes["message"])
+    end
+  end
   end
 end
