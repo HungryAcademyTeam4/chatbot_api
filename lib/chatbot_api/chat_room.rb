@@ -12,6 +12,7 @@ class ChatRoom
     self.title      = attributes["title"]
     self.user_id    = attributes["user_id"]
     self.created_at = attributes["created_at"]
+    self.user_name  = attributes["user_name"]
   end
 
   def self.all
@@ -42,6 +43,5 @@ class ChatRoom
       messages = raw_messages.collect do |msg_attributes|
       Message.new(msg_attributes["message"])
     end
-  end
   end
 end

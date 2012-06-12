@@ -13,6 +13,7 @@ class Message
     self.user_id      = attributes["user_id"]
     self.chat_room_id = attributes["chat_room_id"]
     self.created_at   = attributes["created_at"]
+    self.user_name    = attributes["user_name"]
   end
 
   def self.all
