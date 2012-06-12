@@ -1,7 +1,7 @@
 require 'json'
 
 class ChatRoom
-  attr_accessor :title, :user_id, :id, :created_at
+  attr_accessor :title, :user_id, :id, :created_at, :user_name
 
   def self.client
     ChatbotApi::Client.new
@@ -41,7 +41,8 @@ class ChatRoom
       return nil
     else
       messages = raw_messages.collect do |msg_attributes|
-      Message.new(msg_attributes["message"])
+        Message.new(msg_attributes["message"])
+      end
     end
   end
 end

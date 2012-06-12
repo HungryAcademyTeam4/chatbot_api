@@ -1,7 +1,7 @@
 require 'json'
 
 class Message
-  attr_accessor :content, :user_id, :id, :chat_room_id, :created_at
+  attr_accessor :content, :user_id, :id, :chat_room_id, :created_at, :user_name
 
   def self.client
     ChatbotApi::Client.new
