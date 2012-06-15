@@ -68,6 +68,13 @@ module ChatbotApi
       response.body
     end
 
+    def check_permission(user_name, id)
+      @connection.get do |req|
+        req.url "/api/v1/chat_rooms/#{id}"
+        req.headers['Content-Type'] = 'application/json'
+      end
+    end
+
     def get_message_by_id(id)
       response = @connection.get do |req|
         req.url "/api/v1/messages/#{id}"

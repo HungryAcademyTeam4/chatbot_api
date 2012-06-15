@@ -54,9 +54,9 @@ class ChatRoom
     ChatRoom.client.destroy_permission(attributes.to_json)
   end
 
-  # def permits?(user_id)
-  #   response = ChatRoom.find_by_id(self.id)
-  #   parsed = JSON.parse(response)
-  #   parsed[""]
-  # end
+  def permits?(user_name, id)
+    response = ChatRoom.get_chat_room_by_id(id)
+    chat_room = JSON.parse(response)
+    true if chat_room["permissions"].include?(user_name)
+  end
 end
