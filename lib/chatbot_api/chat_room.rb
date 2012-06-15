@@ -7,6 +7,7 @@ class ChatRoom
     ChatbotApi::Client.new
   end
 
+
   def initialize(attributes)
     self.id         = attributes["id"]
     self.title      = attributes["title"]

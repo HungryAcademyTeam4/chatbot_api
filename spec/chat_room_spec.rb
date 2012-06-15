@@ -40,6 +40,14 @@ class MockClient
   def create_chat_room(attributes)
     ChatRoom.new(attributes)
   end
+
+  def create_permission(attributes)
+    @permission = Permission.new(JSON.parse(attributes))
+  end
+
+  def destroy_permission(attributes)
+    @permission = nil
+  end
 end
 
 describe ChatRoom do
@@ -102,6 +110,28 @@ describe ChatRoom do
     it 'returns nil when no messages' do
       id = JSON.parse(MockClient.new.get_chat_room_by_id(1)).first["chat_room"]
       ChatRoom.find_by_id(id).messages.should be_nil
+    end
+  end
+
+  describe '#invite' do
+    context 'adding a new user to a chat room' do
+      it 'creates a new permission' do
+        id = JSON.parse(MockClient.new.get_chat_room_by_id(1)).first["chat_room"]
+        chat_room = ChatRoom.find_by_id(id)
+        attributes = {"chat_room_id" => 1, "user_name" => 'user2'}
+        chat_room.invite(attributes).should be_kind_of(Permission)
+      end
+    end
+  end
+
+  describe '#uninvite' do
+    context 'removing a user from a chat room' do
+      it 'destroys an existing permission' do
+        attributes = {"chat_room_id" => 1, "user_name" => 'user2'}
+        id = JSON.parse(MockClient.new.get_chat_room_by_id(1)).first["chat_room"]
+        chat_room = ChatRoom.find_by_id(id)
+        chat_room.uninvite(attributes).should be_nil
+      end
     end
   end
 end
