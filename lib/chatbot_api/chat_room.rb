@@ -45,4 +45,18 @@ class ChatRoom
       end
     end
   end
+
+  def invite(attributes)
+    ChatRoom.client.create_permission(attributes.to_json)
+  end
+
+  def uninvite(attributes)
+    ChatRoom.client.destroy_permission(attributes.to_json)
+  end
+
+  # def permits?(user_id)
+  #   response = ChatRoom.find_by_id(self.id)
+  #   parsed = JSON.parse(response)
+  #   parsed[""]
+  # end
 end

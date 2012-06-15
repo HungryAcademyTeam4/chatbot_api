@@ -43,6 +43,23 @@ module ChatbotApi
       end
     end
 
+    def create_permission(attributes)
+      @connection.post do |req|
+        req.url "/api/v1/permissions"
+        req.headers['Content-Type'] = 'application/json'
+        req.body = attributes
+      end
+    end
+
+    def destroy_permission(attributes)
+      id = JSON.parse(attributes)["chat_room_id"]
+      @connection.delete do |req|
+        req.url "/api/v1/permissions/#{id}"
+        req.headers['Content-Type'] = 'application/json'
+        req.body = attributes
+      end
+    end
+
     def get_all_messages
       response = @connection.get do |req|
         req.url "/api/v1/messages"
