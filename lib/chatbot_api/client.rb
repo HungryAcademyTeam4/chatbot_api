@@ -17,10 +17,11 @@ module ChatbotApi
       response.body
     end
 
-    def get_chat_room_by_id(id)
+    def get_chat_room_by_id(attributes)
       response = @connection.get do |req|
-        req.url "/api/v1/chat_rooms/#{id}"
+        req.url "/api/v1/chat_rooms/#{attributes[:id]}"
         req.headers['Content-Type'] = 'application/json'
+        req.params["user_id"] = attributes[:user_id]
       end
       #need to return as an array
       parsed = JSON.parse(response.body)
@@ -68,11 +69,13 @@ module ChatbotApi
       response.body
     end
 
-    def check_permission(user_name, id)
-      @connection.get do |req|
-        req.url "/api/v1/chat_rooms/#{id}"
+    def check_permission(attributes)
+      response = @connection.get do |req|
+        req.url "/api/v1/chat_rooms/#{attributes[:id]}"
         req.headers['Content-Type'] = 'application/json'
+        req.params['user_id'] = attributes[:user_id]
       end
+      response.body
     end
 
     def get_message_by_id(id)

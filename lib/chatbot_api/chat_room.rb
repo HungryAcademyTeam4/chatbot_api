@@ -1,7 +1,7 @@
 require 'json'
 
 class ChatRoom
-  attr_accessor :title, :user_id, :id, :created_at, :user_name
+  attr_accessor :title, :user_id, :id, :created_at, :user_name, :locked
 
   def self.client
     ChatbotApi::Client.new
@@ -14,14 +14,15 @@ class ChatRoom
     self.user_id    = attributes["user_id"]
     self.created_at = attributes["created_at"]
     self.user_name  = attributes["user_name"]
+    self.locked     = attributes["locked"]
   end
 
   def self.all
     parse_all(client.get_all_chat_rooms)
   end
 
-  def self.find_by_id(id)
-    parse_all(client.get_chat_room_by_id(id)).first
+  def self.find_by_id(attributes)
+    parse_all(client.get_chat_room_by_id(attributes)).first
   end
 
   def self.create(attributes)
@@ -55,9 +56,10 @@ class ChatRoom
     ChatRoom.client.destroy_permission(attributes.to_json)
   end
 
-  def permits?(user_name, id)
-    response = ChatRoom.get_chat_room_by_id(id)
-    chat_room = JSON.parse(response)
-    true if chat_room["permissions"].include?(user_name)
+  def permits?(attributes)
+    response = ChatRoom.client.check_permission(attributes)
+    parsed = JSON.parse(response)
+    #returning key 'chat_room' means the response came through
+    true if parsed.keys.include?("chat_room")
   end
 end
