@@ -9,10 +9,11 @@ module ChatbotApi
       @connection = Faraday.new(url: BASE_URL)
     end
 
-    def get_all_chat_rooms
+    def get_all_chat_rooms(user_id)
       response = @connection.get do |req|
         req.url "/api/v1/chat_rooms"
         req.headers['Content-Type'] = 'application/json'
+        req.params['user_id'] = user_id
       end
       response.body
     end

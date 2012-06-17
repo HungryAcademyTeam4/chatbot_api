@@ -17,8 +17,8 @@ class ChatRoom
     self.locked     = attributes["locked"]
   end
 
-  def self.all
-    parse_all(client.get_all_chat_rooms)
+  def self.all(user_id)
+    parse_all(client.get_all_chat_rooms(user_id))
   end
 
   def self.find_by_id(attributes)
