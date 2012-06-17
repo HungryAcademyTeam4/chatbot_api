@@ -48,18 +48,18 @@ class ChatRoom
     end
   end
 
-  def invite(attributes)
+  def invite(attributes) #pass user_id, chat_room_id
     ChatRoom.client.create_permission(attributes.to_json)
   end
 
-  def uninvite(attributes)
+  def uninvite(attributes) #pass user_id, chat_room_id
     ChatRoom.client.destroy_permission(attributes.to_json)
   end
 
-  def permits?(attributes)
+  def permits?(attributes) #pass user_id, chat_room_id
     response = ChatRoom.client.check_permission(attributes)
     parsed = JSON.parse(response)
-    #returning key 'chat_room' means the response came through
+    #returning key 'chat_room' means the response came through, otherwise key is 'error'
     true if parsed.keys.include?("chat_room")
   end
 end
