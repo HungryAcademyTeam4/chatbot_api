@@ -36,7 +36,7 @@ class ChatRoom
   end
 
   def messages
-    response = ChatRoom.client.get_chat_room_by_id(self.id)
+    response = ChatRoom.client.get_chat_room_by_id({id: self.id})
     parsed = JSON.parse(response)
     raw_messages = parsed.first["chat_room"]["messages"]
     if raw_messages.nil?
